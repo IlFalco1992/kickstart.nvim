@@ -846,6 +846,9 @@ require('lazy').setup({
   --    end,
   --  },
   { 'tpope/vim-fugitive' },
+  { 'mfussenegger/nvim-dap' },
+  { 'rcarriga/nvim-dap-ui', dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } },
+  { 'leoluz/nvim-dap-go' },
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
@@ -893,3 +896,87 @@ vim.opt.relativenumber = true
 
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
+-- DAP
+dap = require 'dap'
+vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'DAP: [b]reakpoint' })
+vim.keymap.set('n', '<leader>B', function()
+  dap.set_breakpoint(vim.fn.input 'Breakpoint conditions:')
+end, { desc = 'DAP: Conditional [B]reakpoint' })
+vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'DAP: [c]ontinue' })
+vim.keymap.set('n', '<leader>di', dap.step_into, { desc = 'DAP: Step [i]nto' })
+vim.keymap.set('n', '<leader>do', dap.step_over, { desc = 'DAP: Step [o]ver' })
+vim.keymap.set('n', '<leader>dO', dap.step_out, { desc = 'DAP: Step [O]ut' })
+
+--DAPUI
+require('dapui').setup()
+vim.keymap.set('n', '<leader>du', require('dapui').toggle, { desc = 'DAP: Show dap-ui' })
+local dap, dapui = require 'dap', require 'dapui'
+dap.listeners.before.attach.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.launch.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+  dapui.close()
+end
+
+-- DAP Golang
+require('dap-go').setup {
+  dap_configurations = {
+    {
+      type = 'go',
+      name = 'Attach remote',
+      mode = 'remote',
+      request = 'attach',
+    },
+  },
+  delve = {
+    -- the path to the executable dlv which will be used for debugging.
+    -- by default, this is the "dlv" executable on your PATH.
+    path = 'dlv',
+    -- time to wait for delve to initialize the debug session.
+    -- default to 20 seconds
+    initialize_timeout_sec = 20,
+    -- a string that defines the port to start delve debugger.
+    -- default to string "${port}" which instructs nvim-dap
+    -- to start the process in a random available port
+    port = '4000',
+    -- additional args to pass to dlv
+    args = {},
+    -- the build flags that are passed to delve.
+    -- defaults to empty string, but can be used to provide flags
+    -- such as "-tags=unit" to make sure the test suite is
+    -- compiled during debugging, for example.
+    -- passing build flags using args is ineffective, as those are
+    -- ignored by delve in dap mode.
+    build_flags = '',
+    -- whether the dlv process to be created detached or not. there is
+    -- an issue on Windows where this needs to be set to false
+    -- otherwise the dlv server creation will fail.
+    detached = true,
+  },
+}
+
+-- DAP PHP
+dap.adapters.php = {
+  type = 'executable',
+  command = 'node',
+  args = { os.getenv 'HOME' .. '/vscode-php-debug/out/phpDebug.js' },
+}
+
+dap.configurations.php = {
+  {
+    type = 'php',
+    request = 'launch',
+    name = 'Listen for Xdebug',
+    port = 9003,
+    pathMappings = {
+      ['/var/www/html/'] = vim.fn.getcwd() .. '/',
+    },
+  },
+}
