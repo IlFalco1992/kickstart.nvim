@@ -906,9 +906,11 @@ vim.keymap.set('n', '<leader>B', function()
   dap.set_breakpoint(vim.fn.input 'Breakpoint conditions:')
 end, { desc = 'DAP: Conditional [B]reakpoint' })
 vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'DAP: [c]ontinue' })
+vim.keymap.set('n', '<leader>dt', dap.terminate, { desc = 'DAP: [t]erminate' })
 vim.keymap.set('n', '<leader>di', dap.step_into, { desc = 'DAP: Step [i]nto' })
 vim.keymap.set('n', '<leader>do', dap.step_over, { desc = 'DAP: Step [o]ver' })
 vim.keymap.set('n', '<leader>dO', dap.step_out, { desc = 'DAP: Step [O]ut' })
+vim.keymap.set('n', '<leader>dr', dap.run_to_cursor, { desc = 'DAP: [r]un to cursor' })
 
 --DAPUI
 require('dapui').setup()
