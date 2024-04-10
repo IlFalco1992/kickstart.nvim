@@ -913,11 +913,16 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 
 -- DAP
-dap = require 'dap'
-vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'DAP: [b]reakpoint' })
+local dap = require 'dap'
+local permanent_breakpoints = require 'persistent-breakpoints.api'
+require('persistent-breakpoints').setup {
+  load_breakpoints_event = { 'BufReadPost' },
+}
+vim.keymap.set('n', '<leader>b', permanent_breakpoints.toggle_breakpoint, { desc = 'DAP: [b]reakpoint' })
 vim.keymap.set('n', '<leader>B', function()
-  dap.set_breakpoint(vim.fn.input 'Breakpoint conditions:')
+  permanent_breakpoints.set_breakpoint(vim.fn.input 'Breakpoint conditions:')
 end, { desc = 'DAP: Conditional [B]reakpoint' })
+vim.keymap.set('n', '<leader>dC', permanent_breakpoints.clear_all_breakpoints, { desc = 'DAP: [C]lear all breakpoints' })
 vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'DAP: [c]ontinue' })
 vim.keymap.set('n', '<leader>dt', dap.terminate, { desc = 'DAP: [t]erminate' })
 vim.keymap.set('n', '<leader>di', dap.step_into, { desc = 'DAP: Step [i]nto' })
