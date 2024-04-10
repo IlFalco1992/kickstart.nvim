@@ -852,6 +852,17 @@ require('lazy').setup({
   { 'rcarriga/nvim-dap-ui', dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } },
   { 'leoluz/nvim-dap-go' },
   { 'theHamsta/nvim-dap-virtual-text' },
+  { 'github/copilot.vim' },
+  { 'Weissle/persistent-breakpoints.nvim' },
+  {
+    'rmagatti/auto-session',
+    config = function()
+      require('auto-session').setup {
+        log_level = 'error',
+        auto_session_suppress_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+      }
+    end,
+  },
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
@@ -933,14 +944,6 @@ end
 
 -- DAP Golang
 require('dap-go').setup {
-  dap_configurations = {
-    {
-      type = 'go',
-      name = 'Attach remote',
-      mode = 'remote',
-      request = 'attach',
-    },
-  },
   delve = {
     -- the path to the executable dlv which will be used for debugging.
     -- by default, this is the "dlv" executable on your PATH.
@@ -986,3 +989,10 @@ dap.configurations.php = {
     },
   },
 }
+
+-- DAP launch.json
+require('dap.ext.vscode').load_launchjs 'launch.json'
+
+-- SPELL CHECK
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true
