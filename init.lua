@@ -1037,4 +1037,4 @@ require('aerial').setup {
 }
 vim.keymap.set('n', '<leader>a', function()
   require('aerial').toggle { direction = 'left', focus = false }
-end, { desc = 'Aerial [a] toggle' })
+end, { desc = '[a]erial toggle' })
