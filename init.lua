@@ -1057,3 +1057,30 @@ end, { desc = '[a]erial toggle' })
 
 -- OIL
 require('oil').setup()
+
+--RUSTACEAN VIM
+vim.g.rustaceanvim = {
+  -- Plugin configuration
+  tools = {},
+  -- LSP configuration
+  server = {
+    on_attach = function(client, bufnr)
+      -- you can also put keymaps in here
+      vim.keymap.set('n', '<leader>dc', function()
+        if require('dap').session() == nil then
+          vim.cmd.RustLsp 'debuggables'
+        else
+          require('dap').continue()
+        end
+      end, { desc = 'DAP: [c]ontinue' })
+    end,
+    default_settings = {
+      -- rust-analyzer language server configuration
+      ['rust-analyzer'] = {},
+    },
+  },
+  -- DAP configuration
+  dap = {
+    -- autoload_configurations = true,
+  },
+}
