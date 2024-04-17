@@ -960,7 +960,7 @@ require('persistent-breakpoints').setup {
 }
 vim.keymap.set('n', '<leader>b', permanent_breakpoints.toggle_breakpoint, { desc = 'DAP: [b]reakpoint' })
 vim.keymap.set('n', '<leader>B', function()
-  permanent_breakpoints.set_breakpoint(vim.fn.input 'Breakpoint conditions:')
+  permanent_breakpoints.set_conditional_breakpoint()
 end, { desc = 'DAP: Conditional [B]reakpoint' })
 vim.keymap.set('n', '<leader>dC', permanent_breakpoints.clear_all_breakpoints, { desc = 'DAP: [C]lear all breakpoints' })
 vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'DAP: [c]ontinue' })
