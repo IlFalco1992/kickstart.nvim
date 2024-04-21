@@ -547,7 +547,11 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = {},
-        phpactor = {},
+        phpactor = {
+          root_dir = function(fname)
+            return vim.loop.cwd()
+          end,
+        },
         pyright = {},
         awk_ls = {},
         jsonls = {},
