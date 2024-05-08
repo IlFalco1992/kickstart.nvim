@@ -651,8 +651,14 @@ require('lazy').setup({
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- javascript = { { "prettierd", "prettier" } },
-        php = { 'phpcbf' },
+        php = { 'php_cs_fixer' },
         awk = { 'awk' },
+      },
+      formatters = {
+        php_cs_fixer = {
+          args = { 'fix', '$FILENAME' },
+          -- rootMarkers = { '.php_cs.dist', '.php_cs', 'phpcs.xml' },
+        },
       },
     },
   },
