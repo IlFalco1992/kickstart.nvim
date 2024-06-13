@@ -550,10 +550,11 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = {},
-        phpactor = {
+        intelephense = {
           root_dir = function(fname)
             return vim.loop.cwd()
           end,
+          cmd = { 'intelephense', '--stdio' },
         },
         pyright = {},
         awk_ls = {},
