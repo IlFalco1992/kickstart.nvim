@@ -1195,3 +1195,9 @@ buffer_searcher = function()
 end
 
 vim.keymap.set('n', '<leader><leader>', buffer_searcher, { desc = '[ ] Find existing buffers' })
+
+-- 5 lines jumps
+vim.keymap.set('n', '<C-h>', '5h', { desc = '5 left' })
+vim.keymap.set('n', '<C-j>', '5j', { desc = '5 down' })
+vim.keymap.set('n', '<C-k>', '5k', { desc = '5 up' })
+vim.keymap.set('n', '<C-l>', '5l', { desc = '5 right' })
