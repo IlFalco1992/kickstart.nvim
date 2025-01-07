@@ -1059,6 +1059,24 @@ require('dap-go').setup {
   },
 }
 
+-- DAP CODELLDB
+dap.adapters.codelldb = {
+  type = 'executable',
+  command = os.getenv 'HOME' .. '/.vscode/extensions/vadimcn.vscode-lldb-1.11.1/adapter/codelldb',
+}
+dap.configurations.codelldb = {
+  {
+    name = 'Launch file',
+    type = 'codelldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  },
+}
+
 -- DAP PHP
 dap.adapters.php = {
   type = 'executable',
@@ -1110,6 +1128,8 @@ end
 
 -- DAP launch.json
 require('dap.ext.vscode').load_launchjs 'launch.json'
+-- DAP c files load codelldb
+dap.configurations.c = dap.configurations.codelldb
 
 -- SPELL CHECK
 vim.opt.spelllang = 'en_us'
