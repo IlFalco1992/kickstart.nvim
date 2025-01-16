@@ -592,6 +592,7 @@ require('lazy').setup({
             },
           },
         },
+        autotools_ls = {},
       }
 
       -- Ensure the servers and tools above are installed
