@@ -800,7 +800,7 @@ require('lazy').setup({
     init = function()
       --vim.g.github_light = true
       --vim.g.github_style = 'light'
-      vim.cmd.colorscheme 'github_dark_high_contrast'
+      vim.cmd.colorscheme 'github_dark_default'
     end,
   },
 
