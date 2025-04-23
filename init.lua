@@ -849,7 +849,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'gotmpl' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -1227,3 +1227,15 @@ vim.keymap.set('n', '<M-k>', '5k', { desc = '5 up' })
 vim.keymap.set('n', '<M-l>', '5l', { desc = '5 right' })
 vim.keymap.set('n', '<M-e>', '5<C-e>', { desc = '5 scroll up' })
 vim.keymap.set('n', '<M-y>', '5<C-y>', { desc = '5 scroll down' })
+
+vim.filetype.add {
+  extension = {
+    gotmpl = 'gotmpl',
+  },
+  pattern = {
+    ['.*/templates/.*%.html'] = 'gotmpl',
+    ['.*/templates/.*%.tmpl'] = 'gotmpl',
+    ['.*/templates/.*%.tpl'] = 'gotmpl',
+    ['.*/templates/.*%.gohtml'] = 'gotmpl',
+  },
+}
