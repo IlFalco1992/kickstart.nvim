@@ -595,6 +595,7 @@ require('lazy').setup({
         },
         autotools_ls = {},
         zls = {},
+        laravel_ls = {},
       }
 
       -- Ensure the servers and tools above are installed
