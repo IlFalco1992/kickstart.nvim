@@ -1069,7 +1069,8 @@ dap.adapters.codelldb = {
   type = 'executable',
   command = os.getenv 'HOME' .. '/.vscode/extensions/vadimcn.vscode-lldb-1.11.1/adapter/codelldb',
 }
-dap.configurations.codelldb = {
+-- DAP c files load codelldb
+dap.configurations.c = {
   {
     name = 'Launch file',
     type = 'codelldb',
@@ -1081,13 +1082,30 @@ dap.configurations.codelldb = {
     stopOnEntry = false,
   },
 }
--- DAP c files load codelldb
-dap.configurations.c = dap.configurations.codelldb
-dap.configurations.zig = dap.configurations.codelldb
-dap.configurations.zig[1].program = function()
-  vim.fn.system 'zig build'
-  return '${workspaceFolder}/zig-out/bin/${workspaceFolderBasename}'
-end
+dap.configurations.zig = {
+  {
+    name = 'Launch file',
+    type = 'codelldb',
+    request = 'launch',
+    program = function()
+      vim.fn.system('zig build-exe ' .. vim.fn.expand '%:p' .. ' --name ' .. vim.fn.expand '%:r')
+      return '${workspaceFolder}/' .. '${fileBasenameNoExtension}'
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  },
+  {
+    name = 'Launch zig project',
+    type = 'codelldb',
+    request = 'launch',
+    program = function()
+      vim.fn.system 'zig build'
+      return '${workspaceFolder}/zig-out/bin/${workspaceFolderBasename}'
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+  },
+}
 
 -- DAP PHP
 dap.adapters.php = {
