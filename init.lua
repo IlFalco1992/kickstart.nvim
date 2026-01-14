@@ -1081,6 +1081,13 @@ dap.configurations.codelldb = {
     stopOnEntry = false,
   },
 }
+-- DAP c files load codelldb
+dap.configurations.c = dap.configurations.codelldb
+dap.configurations.zig = dap.configurations.codelldb
+dap.configurations.zig[1].program = function()
+  vim.fn.system 'zig build'
+  return '${workspaceFolder}/zig-out/bin/${workspaceFolderBasename}'
+end
 
 -- DAP PHP
 dap.adapters.php = {
@@ -1133,8 +1140,6 @@ end
 
 -- DAP launch.json
 require('dap.ext.vscode').load_launchjs 'launch.json'
--- DAP c files load codelldb
-dap.configurations.c = dap.configurations.codelldb
 
 -- SPELL CHECK
 vim.opt.spelllang = 'en_us'
