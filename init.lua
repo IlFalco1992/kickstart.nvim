@@ -1156,9 +1156,6 @@ for _, language in ipairs { 'typescript', 'javascript' } do
   }
 end
 
--- DAP launch.json
-require('dap.ext.vscode').load_launchjs 'launch.json'
-
 -- SPELL CHECK
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
