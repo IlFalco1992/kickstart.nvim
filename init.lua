@@ -385,7 +385,7 @@ require('lazy').setup({
         if #text == 0 then
           text = ''
         end
-        builtin.live_grep { default_text = text }
+        builtin.live_grep { default_text = vim.escapeRegex(text) }
       end, { desc = '[S]earch current text in visual mode' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
@@ -1250,6 +1250,22 @@ buffer_searcher = function()
       return true
     end,
   }
+end
+
+vim.escapeRegex = function(text)
+  text = string.gsub(text, '%.', '\\.')
+  text = string.gsub(text, '%*', '\\*')
+  text = string.gsub(text, '%+', '\\+')
+  text = string.gsub(text, '%?', '\\?')
+  text = string.gsub(text, '%^', '\\^')
+  text = string.gsub(text, '%$', '\\$')
+  text = string.gsub(text, '%(', '\\(')
+  text = string.gsub(text, '%)', '\\)')
+  text = string.gsub(text, '%[', '\\[')
+  text = string.gsub(text, '%]', '\\]')
+  text = string.gsub(text, '%{', '\\{')
+  text = string.gsub(text, '%}', '\\}')
+  return text
 end
 
 vim.keymap.set('n', '<leader><leader>', buffer_searcher, { desc = '[ ] Find existing buffers' })
