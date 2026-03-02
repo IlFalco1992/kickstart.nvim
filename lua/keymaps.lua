@@ -75,7 +75,7 @@ require('aerial').setup {
   end,
 }
 
-vim.keymap.set('n', '<leader><leader>', vim.buffer_searcher, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader><leader>', BufferSearcher, { desc = '[ ] Find existing buffers' })
 
 -- TELESCOPE
 local builtin = require 'telescope.builtin'
@@ -97,7 +97,7 @@ vim.keymap.set('v', '<leader>*', function()
   if #text == 0 then
     text = ''
   end
-  builtin.live_grep { default_text = vim.escapeRegex(text) }
+  builtin.live_grep { default_text = EscapeRegex(text) }
 end, { desc = '[S]earch current text in visual mode' })
 vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
