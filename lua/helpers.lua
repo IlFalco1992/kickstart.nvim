@@ -1,4 +1,4 @@
-vim.escapeRegex = function(text)
+EscapeRegex = function(text)
   text = string.gsub(text, '\\', '\\\\')
   text = string.gsub(text, '%.', '\\.')
   text = string.gsub(text, '%*', '\\*')
@@ -16,10 +16,10 @@ vim.escapeRegex = function(text)
 end
 
 -- TELESCOPE delete buffers from list (https://medium.com/@jogarcia/delete-buffers-on-telescope-21cc4cf61b63)
-local action_state = require 'telescope.actions.state'
-local actions = require 'telescope.actions'
-local builtin = require 'telescope.builtin'
-vim.buffer_searcher = function()
+BufferSearcher = function()
+  local action_state = require 'telescope.actions.state'
+  local actions = require 'telescope.actions'
+  local builtin = require 'telescope.builtin'
   builtin.buffers {
     sort_mru = true,
     ignore_current_buffer = true,
@@ -27,7 +27,7 @@ vim.buffer_searcher = function()
     attach_mappings = function(prompt_bufnr, map)
       local refresh_buffer_searcher = function()
         actions.close(prompt_bufnr)
-        vim.schedule(vim.buffer_searcher)
+        vim.schedule(BufferSearcher)
       end
       local delete_buf = function()
         local selection = action_state.get_selected_entry()
