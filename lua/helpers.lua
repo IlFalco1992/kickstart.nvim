@@ -3,7 +3,7 @@ function EscapeRegex(text)
 end
 
 -- TELESCOPE delete buffers from list (https://medium.com/@jogarcia/delete-buffers-on-telescope-21cc4cf61b63)
-BufferSearcher = function()
+function BufferSearcher()
   local action_state = require 'telescope.actions.state'
   local actions = require 'telescope.actions'
   local builtin = require 'telescope.builtin'
