@@ -1,18 +1,5 @@
-EscapeRegex = function(text)
-  text = string.gsub(text, '\\', '\\\\')
-  text = string.gsub(text, '%.', '\\.')
-  text = string.gsub(text, '%*', '\\*')
-  text = string.gsub(text, '%+', '\\+')
-  text = string.gsub(text, '%?', '\\?')
-  text = string.gsub(text, '%^', '\\^')
-  text = string.gsub(text, '%$', '\\$')
-  text = string.gsub(text, '%(', '\\(')
-  text = string.gsub(text, '%)', '\\)')
-  text = string.gsub(text, '%[', '\\[')
-  text = string.gsub(text, '%]', '\\]')
-  text = string.gsub(text, '%{', '\\{')
-  text = string.gsub(text, '%}', '\\}')
-  return text
+function EscapeRegex(text)
+  return (text:gsub('([\\%(%)%.%%%+%-%*%?%[%]%^%$])', '\\%1'))
 end
 
 -- TELESCOPE delete buffers from list (https://medium.com/@jogarcia/delete-buffers-on-telescope-21cc4cf61b63)
