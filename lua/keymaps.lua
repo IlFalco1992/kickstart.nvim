@@ -126,7 +126,7 @@ vim.keymap.set('n', '<leader>s/', function()
 end, { desc = '[S]earch [/] in Open Files' })
 
 -- LSP-CONFIG
-LspKeymap = function(event)
+function LspKeymap(event)
   local map = function(keys, func, desc)
     vim.keymap.set('n', keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
   end
