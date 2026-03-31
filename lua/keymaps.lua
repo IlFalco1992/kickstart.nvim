@@ -137,7 +137,11 @@ function LspKeymap(event)
   map('gd', builtin.lsp_definitions, '[G]oto [D]efinition')
 
   -- Find references for the word under your cursor.
-  map('gr', builtin.lsp_references, '[G]oto [R]eferences')
+  map('gr', function()
+    builtin.lsp_references {
+      include_current_line = true,
+    }
+  end, '[G]oto [R]eferences')
 
   -- Jump to the implementation of the word under your cursor.
   --  Useful when your language has ways of declaring types without an actual implementation.
