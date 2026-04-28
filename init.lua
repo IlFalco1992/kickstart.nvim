@@ -20,7 +20,11 @@ require('nvim-dap-virtual-text').setup()
 require 'dap-setup'
 
 -- OIL
-require('oil').setup()
+require('oil').setup {
+  view_options = {
+    show_hidden = true,
+  },
+}
 
 require 'helpers'
 
