@@ -77,3 +77,5 @@ vim.opt.hlsearch = true
 vim.opt.relativenumber = true
 
 vim.diagnostic.config { virtual_text = true }
+
+vim.opt.foldlevelstart = 99
